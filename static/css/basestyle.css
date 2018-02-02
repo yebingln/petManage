@@ -1,0 +1,262 @@
+.hide{
+    display: none;
+}
+.login {
+    border: 1px solid green;
+    width: 200px;
+    height: 800px;
+    float: 35%;
+
+}
+
+
+[type="submit"] {
+    height: 40px !important;
+    padding: 0 !important;
+    background-color: darkgoldenrod;
+    font-size: 25px;
+    width: 400px;
+}
+
+.title {
+    font-size: 40px;
+    color: #f39800;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.user {
+    float: right;
+}
+
+.div-inline {
+    width: 20%;
+    float: left;
+}
+
+.newcasetitle {
+    font-size: 35px;
+    background-color: peachpuff;
+    padding: 10px;
+    margin-bottom: 35px;
+    color: dimgray;
+}
+
+.twoline {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.twoline input[type='text'] {
+    width: 15%;
+    height: 40px;
+}
+
+
+.twoline input[type='radio'] {
+    margin: 0 12px;
+    width: 20px;
+    height: 20px;
+}
+
+.twoline span:nth-child(3) {
+    margin-left: 150px;
+}
+
+.twoline input[type='submit'] {
+    margin-top: 50px;
+    width: 180px;
+    background-color: sandybrown;
+    color: dimgray;
+}
+.twoline select {
+    width: 12%;
+    height: 40px;
+    font-size: 20px;
+}
+
+.longline {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.longline input[type='text'] {
+    width: 46%;
+    height: 40px;
+}
+/*订单列表样式*/
+
+.search {
+    width: 100px;
+    background-color: sandybrown;
+    color: dimgray;
+    /*margin-left: 100px;*/
+}
+.oneline {
+    margin: 10px;
+    font-size: 20px;
+}
+.oneline input[type='text'] {
+    height: 40px;
+}
+
+
+.caselisttb{
+    margin-top: 100px;
+}
+
+.morepet{
+    margin-left: 10px;
+    font-size: smaller;
+}
+
+.addreduce{
+    font-size: 15px;
+}
+/*导航栏*/
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+    font: 12px Microsoft YaHei, arial, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: #f39800;
+    text-decoration: none;
+}
+
+/** =======================
+ * Contenedor Principal
+ ===========================*/
+.list-title {
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    border-top: solid 1px #ccc;
+    border-left: solid 1px #ccc;
+    border-right: solid 1px #ccc;
+    background: #FFF;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    color: #f39800;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h1 {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 80px;
+}
+
+h1 a {
+    color: #f39800;
+    font-size: 16px;
+}
+
+.accordion {
+    width: 100%;
+    max-width: 200px;
+    border: solid 1px #ccc;
+    background: #FFF;
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 42px;
+    color: #4D4D4D;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.accordion li:last-child .link {
+    border-bottom: 0;
+}
+
+.accordion li {
+    cursor: pointer;
+}
+
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.accordion li i.fa-chevron-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.accordion li.open .link {
+    color: #f39800;
+}
+
+.accordion li.open i {
+    color: #f39800;
+}
+
+.accordion li.open i.fa-chevron-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+.submenu {
+    display: none;
+    background: #f5f5f5;
+    font-size: 14px;
+}
+
+.submenu li {
+    border-bottom: 1px solid #d6d7dc;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #666;
+    padding: 12px;
+    padding-left: 42px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.submenu a:hover, .submenu li.current a {
+    background: #f39800;
+    color: #FFF;
+}
+
+/*http://www.jq22.com*/

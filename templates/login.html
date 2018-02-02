@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="width: 300px">
+
+   <div class="login" style="border: 1px solid darkorange">
+        <h2>会员登录</h2>
+
+        <form action="" method="post">
+            <div class="twoline">
+                手机：&nbsp{{ form.username }}
+            <br/>
+            <br/>
+            密码：&nbsp{{ form.password }}
+            <br/>
+            <!--{{ form.as_table }}-->
+            <br/>
+            </div>
+
+            <div>
+                <input type="submit" value="登录" class="log">
+            </div>
+        </form>
+
+
+         <a href="/register/" class="register" style="float:right">register</a>
+
+    <div>
+        {{ err }}
+    </div>
+    </div>
+</body>
+</html>
+
+
+

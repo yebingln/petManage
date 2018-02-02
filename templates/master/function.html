@@ -1,0 +1,141 @@
+<script src="../../static/jQuery/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script>
+    /**$('.register').click(function () {
+           var tep=$('.login').html();
+            $.ajax({
+                url:'register',  <!--跳转到哪个URL-->
+                type:'GET',
+                data:{dat:temp},
+                <!--arg 是views.py里return的内容-->
+                success:function (arg) {
+                    var obj=jQuery.parseJSON(arg);
+
+                    $('#name').val(obj.msg);
+                },
+                error:function () {
+                    console.log('failed');
+                }
+            });
+
+
+       })；
+     **/
+    //左侧导航栏的方法
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+
+            // Variables privadas
+            var links = this.el.find('.link');
+            // Evento
+            links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+
+        };
+
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            $this = $(this);
+            $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            }
+        };
+
+        var accordion = new Accordion($('#accordion'), false);
+        $('.submenu li').click(function () {
+            $(this).addClass('current').siblings('li').removeClass('current');
+        });
+    });
+
+    /**
+     $(".submenu li a").each(function () {
+
+        var $this = this;
+        $this.click(function (event) {
+            console.log($.get($this.attr("href")))
+            event.preventDefault();
+            $(".div-inline1").html($.get($this.attr("href")));
+
+        });
+    });
+     **/
+
+    $(function () {
+        $('#mydatepicker2').dcalendarpicker({
+            format: 'yyyy-mm-dd'
+        });
+        $('#mydatepicker').dcalendarpicker({
+            format: 'yyyy-mm-dd'
+        });
+        var $sele=$('#pettype').find('.spanpettype').html();
+        console.log($sele)
+    });
+    //上传照片的方法
+    $("#file0").change(function () {
+        var objUrl = getObjectURL(this.files[0]);
+        console.log("objUrl = " + objUrl);
+        if (objUrl) {
+            $("#img0").attr("src", objUrl);
+            $("#img0").removeClass("hide");
+            $("#img0").attr("width", 250);
+            $("#img0").attr("height", 175);
+        }
+    });
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        }
+        else if (window.URL != undefined) {
+            // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        }
+        else if (window.webkitURL != undefined) {
+            // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    //添加更多宠物的方法
+
+    var index_5_1 = 1;
+
+    $(".add").click(function () {
+
+        var $other = $("#addmorepet"),
+            $clone = $other
+                .clone()
+                //.removeClass('hide')
+                .removeAttr('id')
+                .insertAfter($other);
+        //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
+        //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
+        //$clone.find('[name="photo"]').attr("name", "photo[" + index_5_1 + "]").end();
+        //$clone.find('[name="newuserpetlike"]').attr("name", "newuserpetlike[" + index_5_1 + "]").end();
+
+        if ($(".addmorepet").length > 1) {
+            $(".remove").removeClass('hide');
+        }
+        index_5_1++;
+    });
+
+    $(".remove").click(function () {
+        var flag = $(".addmorepet").length;
+        if (flag > 1) {
+            $(".addmorepet:last").remove()
+        }
+        if (flag === 2) {
+            $(".remove").addClass('hide');
+
+        }
+    });
+
+
+</script>

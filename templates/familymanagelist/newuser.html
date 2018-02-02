@@ -1,0 +1,60 @@
+{% extends 'master/layout.html' %}
+{% block content %}
+    <div style="">
+        <div class="newcasetitle">
+            <p>新建家庭</p>
+        </div>
+        <div class="twoline">
+            <span>家长姓名</span>
+            <input type="text" name="username">
+{#            {{ fuser.name }}#}
+            <span>电话</span>
+            <input type="text" name="telephone">
+{#            {{ fuser.tele }}#}
+        </div>
+        <br/>
+        <div class="longline">
+            <span>联系地址</span>
+            <input style="width: 44.2%" type="text" name="address">
+{#            {{ fuser.addr }}#}
+        </div>
+        <br/>
+        <div class="addmorepet" id="addmorepet">
+            <div class="twoline">
+                <span>宠物姓名</span>
+                <input type="text" name="petname">
+                <span>宠物类型</span>
+                <select name="pettype">
+                    <option value="1">猫</option>
+                    <option value="2">狗</option>
+                    <option value="3">小宠</option>
+                    <option value="4">其他</option>
+                </select>
+            </div>
+            <br/>
+            <div class="twoline">
+                <span>宠物照片</span>
+                <input type="file" name="file0" id="file0" multiple="multiple"/>
+            </div>
+            <br><br><img src="/static/img/upload.png" id="img0"
+                         style="margin-left: 80px;margin-top: -10px" name="photo">
+            <br/>
+            <div style="margin-top: 30px">
+                <span style="line-height: 180px;font-size: 20px">宠物偏好</span>
+                <span><textarea type="text" name="newuserpetlike" style="width:650px;height: 150px"></textarea></span>
+            </div>
+        </div>
+        <div class="addreduce">
+
+            <a class="add">添加更多宠物</a>
+
+            <a class="remove hide" style="margin-left: 30px">删除</a>
+
+        </div>
+        <div class="twoline">
+            <input type="submit" value="创建">
+        </div>
+
+
+    </div>
+{% endblock %}

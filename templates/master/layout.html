@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/basestyle.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/dcalendar.picker.css"/>
+
+</head>
+<body>
+<div style="margin: 1% 3%">
+    <div>
+        {#        <div style="position: absolute"><img src="../../static/img/title.jpg"></div>#}
+        <span class="title">宠物管理系统</span>
+        <span class="user">昵称&nsbp{{ user }}</span>
+    </div>
+    <div class="div-inline">
+
+        {% include 'leftbar.html' %}
+        <br/>
+        <img src="../../static/img/cat.png" style="width: 80%;height: 350px">
+    </div>
+    <form action="" method="post">
+        <div class="div-inline1" style="margin-left: 20%">
+{#            {% include 'casemanagelist/newcase.html' %}#}
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </form>
+
+</div>
+
+{% include "master/style.html" %}
+{% include "master/function.html" %}
+
+<script src="../../static/jQuery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../../static/js/dcalendar.picker.js"></script>
+</body>
+
+</html>

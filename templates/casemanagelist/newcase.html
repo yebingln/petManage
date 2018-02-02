@@ -1,0 +1,56 @@
+{% extends 'master/layout.html' %}
+{% block content %}
+    <div>
+        <div class="newcasetitle">
+            <p>新建订单</p>
+        </div>
+        <div class="twoline">
+            <span>家长姓名</span>
+            <input type="text" name="username" value={{ data.name }}>
+
+            <span>电话</span>
+            <input type="text" name="telephone" value="{{ data.telephone }}">
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>联系地址</span>
+            <input style="width: 44.2%" type="text" name="address" value={{ data.adress }}>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>宠物姓名</span>
+            <input type="text" name="petname" value={{ pet.type }}>
+            <span>宠物类型</span>
+            <select name="pettype" id="pettype">
+{#                <option value={{ data.type }}>{{ data.type }}</option>#}
+                <option value="1">猫</option>
+                <option value="2">狗</option>
+                <option value="3">小宠</option>
+                <option value="4">其他</option>
+            </select>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>寄养时间</span>
+            <input type="text" style="width: 180px" name="starttime" id="mydatepicker"> ~ <input id="mydatepicker2" style="width: 180px" type="text" name="endtime">
+
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>预计收入</span>
+            <input type="text" name="income">
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>是否完成收费</span>
+            <input type="radio" name="finishincome" value="1">是
+            <input type="radio" name="finishincome" style="margin-left: 150px" value="2">否
+        </div>
+        <br/>
+        <div class="twoline">
+            <input type="submit" value="创建">
+        </div>
+
+
+    </div>
+{% endblock %}
