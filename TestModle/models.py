@@ -19,6 +19,7 @@ class Pet(models.Model):
         (3, u'小宠'),
         (4, u'其他'),
     )
+
     type=models.CharField(max_length=10,choices=pettype,null=True)
     pethost=models.ForeignKey('UserInfo')
     like=models.CharField(max_length=200,null=True)
