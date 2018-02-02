@@ -114,7 +114,13 @@
                 .clone()
                 //.removeClass('hide')
                 .removeAttr('id')
-                .insertAfter($other);
+                .remove
+                .insertAfter($(".addmorepet:last"));
+        $clone.find('[name="petname"]').val("").end();
+        $clone.find('[name="pettype"]').val("").end();
+        $clone.find('[name="file0"]').val("").end();
+        $clone.find('[name="newuserpetlike"]').val("").end();
+        //$clone.find('[name="photo"]').attr("src","/static/img/upload.png").attr("width","").attr("height","").end();
         //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
         //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
         //$clone.find('[name="photo"]').attr("name", "photo[" + index_5_1 + "]").end();
