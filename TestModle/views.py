@@ -35,7 +35,7 @@ def register(request):
         checkform=forms.register(request.POST)
         if checkform.is_valid():
             data=checkform.cleaned_data
-            models.Account.objects.create(username=data['username'],telephone=data['telephone'],password=data['password'])
+            models.Account.objects.create(username=data['username'],password=data['password'])
             return render_to_response('login.html')
         else:
             return HttpResponse('失败')
@@ -43,6 +43,7 @@ def register(request):
 
 # @wraper.Loginwraper
 def default(request):
+    request.session['is_login']={'ni':1111}
     username=request.session['is_login']
     return render_to_response('master/default.html',{'user':username['ni']})
 # @wraper.Loginwraper
@@ -70,14 +71,12 @@ def newcase(request):
         li=[]
         di={}
         for data_pet in obj_pet.values():
-            print(data_pet)
             di.update(data_pet)
             li.append(data_pet)
-        print(li)  #li是列表
         ret['data']=data
         ret['pet']=li
-
-        return render_to_response('casemanagelist/newcase.html',ret)
+        allusr=models.UserInfo.objects.values('id','name','telephone','pet_user__petname')
+        return render_to_response('casemanagelist/newcase.html',{'da':allusr})
     elif request.method=='POST':
         start=request.POST.get('starttime')
         end=request.POST.get('endtime')
@@ -108,6 +107,12 @@ def newuser(request):
             host_id=i['id']
         biglist=zip(petname,pettype,newuserpetlike,file0)
         for i in biglist:
-            models.Pet.objects.create(name=i[0], type=i[1], like=i[2], photo=i[3],pethost_id=host_id)
+            models.Pet.objects.create(petname=i[0], type=i[1], like=i[2], photo=i[3],pethost_id=host_id)
         return HttpResponse('ok')
     return render_to_response('familymanagelist/newuser.html')
+
+def re(request):
+    da=models.UserInfo.objects.all()
+    allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname')
+    print(allusr)
+    return render_to_response('casemanagelist/relatfamily.html',{'da':allusr})

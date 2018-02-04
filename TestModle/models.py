@@ -21,12 +21,12 @@ class Pet(models.Model):
     )
 
     type=models.CharField(max_length=10,choices=pettype,null=True)
-    pethost=models.ForeignKey('UserInfo')
+    pethost=models.ForeignKey('UserInfo',related_name='pet_user',on_delete=models.CASCADE)
     like=models.CharField(max_length=200,null=True)
     photo=models.ImageField(null=True)
 
 class order(models.Model):
-    # id=models.AutoField()
+    ortele=models.ForeignKey('UserInfo',related_name='order_user',on_delete=models.CASCADE)
     creat_date = models.DateTimeField(auto_now_add=True,null=True)
     update_data = models.DateTimeField(auto_now=True, error_messages={'invalid': '日期格式错误'},null=True)
     starttime=models.DateTimeField(null=True)
@@ -44,7 +44,7 @@ class order(models.Model):
         (2, u'月/次'),
     )
     frequency=models.CharField(max_length=50,choices=fre,null=True)
-    ortele=models.ForeignKey('UserInfo')
+    # ortele=models.ForeignKey('UserInfo')
 class Income(models.Model):
     income=models.CharField(max_length=50,null=True)
     pay=models.CharField(max_length=50,null=True)

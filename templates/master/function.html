@@ -72,7 +72,7 @@
         $('#mydatepicker').dcalendarpicker({
             format: 'yyyy-mm-dd'
         });
-        var $sele=$('#pettype').find('.spanpettype').html();
+        var $sele = $('#pettype').find('.spanpettype').html();
         console.log($sele)
     });
     //上传照片的方法
@@ -86,6 +86,7 @@
             $("#img0").attr("height", 175);
         }
     });
+
     //建立一個可存取到該file的url
     function getObjectURL(file) {
         var url = null;
@@ -143,5 +144,16 @@
         }
     });
 
+    //关联家庭的方法
+
+    $('.relatefamily').click(function () {
+        //清除之前的样式
+        $("#fullScreen").removeClass('hide');
+        $("#floatLayer").removeClass('hide');
+
+        $(".family_sub").click(function () {
+            $("#fullScreen,#floatLayer").addClass('hide');
+        });
+    });
 
 </script>
