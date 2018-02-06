@@ -1,4 +1,7 @@
-a={'a':1,'b':2}
-b={'a':3,'b':4}
-c=[{'a':1,'b':2},{'a':3,'b':4}]
-print(dict(c))
+series='08,23,34'
+a=series.split(',')
+b=[]
+print(a)
+for i in a:
+    b.append(int(i))
+print(b)

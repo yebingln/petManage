@@ -73,7 +73,6 @@
             format: 'yyyy-mm-dd'
         });
         var $sele = $('#pettype').find('.spanpettype').html();
-        console.log($sele)
     });
     //上传照片的方法
     $("#file0").change(function () {
@@ -144,7 +143,7 @@
         }
     });
 
-    //关联家庭的方法
+    //关联家庭的浮层显示消失方法
 
     $('.relatefamily').click(function () {
         //清除之前的样式
@@ -153,7 +152,26 @@
 
         $(".family_sub").click(function () {
             $("#fullScreen,#floatLayer").addClass('hide');
+            //window.location.reload();
+           //parent.location.reload();
+
         });
     });
+
+    //获取关联家庭的信息
+    $('#relauser').click(function () {
+        $('[name="sele"]').each(function (i, e) {
+            if ($(e).prop("checked")) {
+                var data=$(e).val().split(',');
+                $('#username').val(data[0]);
+                $('#telephone').val(data[1]);
+                $('#addr').val(data[2]);
+                $('#petname').val(data[3]);
+                $('#pett').val(data[4]);
+                console.log($(e).val());
+            }
+        });
+    });
+
 
 </script>

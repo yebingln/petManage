@@ -69,6 +69,15 @@
     color: dimgray;
 }
 
+.family_sub {
+    margin-top: 30px;
+    width: 180px;
+    background-color: sandybrown;
+    color: dimgray;
+    height: 50px;
+    font-size: 25px;
+}
+
 .twoline select {
     width: 12%;
     height: 40px;
@@ -320,6 +329,7 @@ h1 a {
     font-size: 25px;
     margin-top: 20px;
 }
+
 td {
-text-align:center;
+    text-align: center;
 }

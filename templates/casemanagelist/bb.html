@@ -6,31 +6,16 @@
     <script type="text/javascript" src="../../static/jQuery/jquery-1.8.2.min.js"></script>
 </head>
 <body>
-<form method='post' action=''>
-    <label for='inputText'>inputText</label>
-    <input type='text' id='inputText'/>
-
-    <label for='checkBox1'>checkBox1</label>
-    <input type='checkbox' id='checkBox1'/>
-
-    <label for='checkBox2'>checkBox2</label>
-    <input type='checkbox' id='checkBox2'/>
-    <!--其他你想填写的表单选项-->
-    <input type='button' value='提交表单' id='submitBtn'/>
-</form>
+<select class="new">
+    <option value="1">猫</option>
+    <option value="2">狗</option>
+    <option value="3">小宠</option>
+</select>
 <script>
-    $(document).ready(function () {
-        $('#submitBtn').click(function (e) {
-            /*一系列根据自己的意图判断输入框是否已输入内容并决定是否往下执行*/
-
-            //获取表单的系列化数据。这会生成一个A=valueA&B=valueB这种形式的字符串。
-            var formData = $('form').serialize();
-            console.log(formData);
-            //$.post('目标地址', formData, 成功 / 失败回调函数);
-            //e.preventDefault();
-        });
-
-    });
+    var i=2;
+$(function () {
+    $('.new').val(2)
+})
 </script>
 </body>
 

@@ -4,6 +4,7 @@ from  django.shortcuts import HttpResponse,redirect
 from . import models
 from . import forms
 from . import wraper
+import json
 
 # Create your views here.
 
@@ -60,31 +61,24 @@ def test(request):
         print(i['id'])
 
     return render_to_response('test.html',{'a':cc})
-def newcase(request):
 
-    if request.method=='GET':
-        ret={'data':"",'pet':""}
-        obj=models.UserInfo.objects.order_by('-id')[0:1]  #倒叙排id
-        for data in obj.values():
-            data=data
-        obj_pet=models.Pet.objects.filter(pethost_id=data['id'])
-        li=[]
-        di={}
-        for data_pet in obj_pet.values():
-            di.update(data_pet)
-            li.append(data_pet)
-        ret['data']=data
-        ret['pet']=li
-        allusr=models.UserInfo.objects.values('id','name','telephone','pet_user__petname')
-        return render_to_response('casemanagelist/newcase.html',{'da':allusr})
+def newcase(request):
+    if request.method == 'GET':
+        allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname','adress','pet_user__type')
+        return render_to_response('casemanagelist/newcase.html', {'da': allusr})
     elif request.method=='POST':
-        start=request.POST.get('starttime')
-        end=request.POST.get('endtime')
-        income=request.POST.get('income')
-        finishincome=request.POST.get('finishincome')
-        models.order.objects.create(starttime=start,endtime=end,finishincome=finishincome)
-        models.Income.objects.create(income=income)
-        return HttpResponse('OK')
+        start = request.POST.get('starttime')
+        end = request.POST.get('endtime')
+        income = request.POST.get('income')
+        finishincome = request.POST.get('finishincome')
+        telephone=request.POST.get('telephone')
+        petname=request.POST.get('petname')
+        orduser=models.UserInfo.objects.filter(telephone=telephone,pet_user__petname=petname).values('id','pet_user__id')
+        for i in orduser:
+            i=i
+            models.order.objects.create(starttime=start, endtime=end, finishincome=finishincome,ord_user_id=i['id'],ord_pet_id=i['pet_user__id'])
+        return redirect('/caselist/')
+
 
 def processingcase(request):
     return render_to_response('casemanagelist/processingcase.html')
