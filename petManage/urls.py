@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^home2/$', views.home2),
     url(r'^newcase/$', views.newcase),
     url(r'^processingcase/$', views.processingcase),
-    url(r'^caselist/$', views.caselist),
+    url(r'^caselist/(\d*)', views.caselist),
     url(r'^newuser/$', views.newuser),
     url(r'^re/$', views.re),
 ]

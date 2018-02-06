@@ -4,33 +4,33 @@
         <div class="newcasetitle">
             <p>新建订单</p>
         </div>
-            <div class="twoline">
-                <span>家长姓名</span>
-                <input type="text" name="username" id="username"/>
+        <div class="twoline">
+            <span>家长姓名</span>
+            <input type="text" name="username" id="username"/>
 
-                <span>电话</span>
-                <input type="text" name="telephone" id="telephone"/>
-                <a style="font-size: smaller;margin-left: 10px" class="relatefamily">关联家庭</a>
-            </div>
+            <span>电话</span>
+            <input type="text" name="telephone" id="telephone"/>
+            <a style="font-size: smaller;margin-left: 10px" class="relatefamily">关联家庭</a>
+        </div>
 
-            <br/>
-            <div class="twoline">
-                <span>联系地址</span>
-                <input style="width: 44.2%" type="text" name="address" id="addr"/>
-            </div>
-            <br/>
-            <div class="twoline">
-                <span>宠物姓名</span>
-                <input type="text" name="petname" id="petname"/>
-                <span>宠物类型</span>
-                <select name="pettype" id="pett">
-                    <option value="1">猫</option>
-                    <option value="2">狗</option>
-                    <option value="3">小宠</option>
-                    <option value="4">其他</option>
-                </select>
+        <br/>
+        <div class="twoline">
+            <span>联系地址</span>
+            <input style="width: 44.2%" type="text" name="address" id="addr"/>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>宠物姓名</span>
+            <input type="text" name="petname" id="petname"/>
+            <span>宠物类型</span>
+            <select name="pettype" id="pett">
+                <option value="1">猫</option>
+                <option value="2">狗</option>
+                <option value="3">小宠</option>
+                <option value="4">其他</option>
+            </select>
 
-            </div>
+        </div>
         <br/>
         <div class="twoline">
             <span>寄养时间</span>
@@ -58,10 +58,8 @@
         <div id="fullScreen" class="hide">fullsc</div>
         <div class="relatealert hide" id="floatLayer">
             <h4 class="alertitle">可关联的家庭</h4>
-            <div>
-
-                {#                <form action="" method="post" name="relauser">#}
-                <table class="family_tab" border="1" cellspacing="0">
+            <div style="overflow: scroll;height: 235px">
+                <table class="family_tab" border="1" cellspacing="0" class="ale">
                     <tr>
                         <th>家庭编号</th>
                         <th>家庭姓名</th>
@@ -76,16 +74,16 @@
                             <td>{{ i.telephone }}</td>
                             <td>{{ i.pet_user__petname }}</td>
                             <td><label><input type="radio" name="sele"
-                                              value="{{ i.name }},{{ i.telephone }},{{ i.adress }},{{ i.pet_user__petname }},{{ i.pet_user__type }}" /></label></td>
+                                              value="{{ i.name }},{{ i.telephone }},{{ i.adress }},{{ i.pet_user__petname }},{{ i.pet_user__type }}"/></label>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
-                <div class="twoline">
-                    <input class="family_sub" type="button" value="确定" style="margin-left: 50px;width: 150px;"
-                           id="relauser" >
-                </div>
-
-                {#                </form>#}
+            </div>
+            <div class="twoline">
+                <input class="family_sub" type="button" value="确定" style="margin-left: 50px;width: 150px;"
+                       id="relauser">
+                <span style="margin-left: 60%;font-size: 20px"></span>
             </div>
         </div>
 

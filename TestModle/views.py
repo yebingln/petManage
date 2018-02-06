@@ -5,6 +5,8 @@ from . import models
 from . import forms
 from . import wraper
 import json
+from .public_func import common
+from .public_func import HTML_helper
 
 # Create your views here.
 
@@ -66,6 +68,7 @@ def newcase(request):
     if request.method == 'GET':
         allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname','adress','pet_user__type')
         return render_to_response('casemanagelist/newcase.html', {'da': allusr})
+
     elif request.method=='POST':
         start = request.POST.get('starttime')
         end = request.POST.get('endtime')
@@ -78,7 +81,6 @@ def newcase(request):
             i=i
             models.order.objects.create(starttime=start, endtime=end, finishincome=finishincome,ord_user_id=i['id'],ord_pet_id=i['pet_user__id'])
         return redirect('/caselist/')
-
 
 def processingcase(request):
     return render_to_response('casemanagelist/processingcase.html')
@@ -110,3 +112,19 @@ def re(request):
     allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname')
     print(allusr)
     return render_to_response('casemanagelist/relatfamily.html',{'da':allusr})
+
+# 订单列表
+def caselist(request,page):
+    if request.method=='GET':
+        per_item = common.try_int(5, 5)  # 获取cookie
+        print(per_item)
+        count =models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime').count()
+        page = common.try_int(page, 1)
+        pageobj = HTML_helper.Pageinfo(page, count, per_item)
+        resul = models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime')[pageobj.start():pageobj.end()]
+        page_string = HTML_helper.pager(page, pageobj.all_page_count())
+        # ret = {'da': allusr, 'page': page_string}
+        # response = render_to_response('page.html', ret)
+        # resul=models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime')
+        print(resul)
+        return render_to_response('casemanagelist/caselist.html',{'resul':resul,'page':page_string})

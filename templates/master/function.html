@@ -157,7 +157,11 @@
 
         });
     });
-
+    $('.pagefil').click(function () {
+        $("#fullScreen").removeClass('hide');
+        $("#floatLayer").removeClass('hide');
+        console.log(ooo)
+    });
     //获取关联家庭的信息
     $('#relauser').click(function () {
         $('[name="sele"]').each(function (i, e) {
@@ -173,5 +177,7 @@
         });
     });
 
-
+    $(function () {
+        $('.ale').scroll();
+    })
 </script>

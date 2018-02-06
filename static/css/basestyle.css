@@ -113,7 +113,7 @@
 }
 
 .caselisttb {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .morepet {
@@ -332,4 +332,26 @@ h1 a {
 
 td {
     text-align: center;
+}
+
+.caselist{
+    border: solid sandybrown 1px;
+    width:100%;
+    height:400px;
+    font-size: 20px;
+    line-height: 70px;
+
+}
+.caselist_title{
+    background-color: #f39800;
+    color: white;
+}
+.caselist_page{
+    font-size: 18px;
+    float: right;
+    margin-top: 50px;
+}
+.caselist_page a{
+    color: black;
+    margin-left: 5px;
 }

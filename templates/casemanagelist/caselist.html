@@ -16,9 +16,9 @@
                 <input type="submit" value="搜索" class="search">
             </label>
         </div>
-        <div class="caselisttb">
-            <table style="border: solid sandybrown 1px" width="80%">
-                <tr>
+        <div class="caselisttb" >
+            <table class="caselist">
+                <tr class="caselist_title">
                     <th>订单编号</th>
                     <th>家长姓名</th>
                     <th>联系电话</th>
@@ -27,8 +27,22 @@
                     <th>寄养日期</th>
                     <th>状态</th>
                 </tr>
-
+                {% for i in resul %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.ord_user__name }}</td>
+                    <td>{{ i.ord_user__telephone }}</td>
+                    <td>{{ i.ord_pet__type }}</td>
+                    <td>{{ i.ord_pet__petname }}</td>
+                    <td>{{ i.starttime|date:"Y-m-d" }}~{{ i.endtime|date:"Y-m-d" }}</td>
+                    <td>
+                        <a>修改</a>
+                        <a>删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
             </table>
         </div>
+    <div class="caselist_page">{{ page }}</div>
     </div>
 {% endblock %}
