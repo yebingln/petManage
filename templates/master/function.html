@@ -74,17 +74,7 @@
         });
         var $sele = $('#pettype').find('.spanpettype').html();
     });
-    //上传照片的方法
-    $("#file0").change(function () {
-        var objUrl = getObjectURL(this.files[0]);
-        console.log("objUrl = " + objUrl);
-        if (objUrl) {
-            $("#img0").attr("src", objUrl);
-            $("#img0").removeClass("hide");
-            $("#img0").attr("width", 250);
-            $("#img0").attr("height", 175);
-        }
-    });
+
 
     //建立一個可存取到該file的url
     function getObjectURL(file) {
@@ -106,43 +96,53 @@
     //添加更多宠物的方法
 
     var index_5_1 = 1;
+        $(".add").click(function () {
 
-    $(".add").click(function () {
+            var $other = $("#addmorepet"),
+                $clone = $other
+                    .clone()
+                    //.removeClass('hide')
+                    .removeAttr('id')
+                    .insertAfter($(".addmorepet:last"));
+            $clone.find('[name="petname"]').val("").end();
+            $clone.find('[name="pettype"]').val("").end();
+            $clone.find('[name="file0"]').val("").end();
+            $clone.find('[name="newuserpetlike"]').val("").end();
+            //$clone.find('[name="photo"]').val("").end();
+            //$clone.find('[name="photo"]').attr("src","/static/img/upload.png").attr("width","").attr("height","").end();
+            //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
+            //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
+            $clone.find('[name="photo"]').attr("name", "photo" + index_5_1).end();
+            //$clone.find('[name="newuserpetlike"]').attr("name", "newuserpetlike[" + index_5_1 + "]").end();
 
-        var $other = $("#addmorepet"),
-            $clone = $other
-                .clone()
-                //.removeClass('hide')
-                .removeAttr('id')
-                .remove
-                .insertAfter($(".addmorepet:last"));
-        $clone.find('[name="petname"]').val("").end();
-        $clone.find('[name="pettype"]').val("").end();
-        $clone.find('[name="file0"]').val("").end();
-        $clone.find('[name="newuserpetlike"]').val("").end();
-        //$clone.find('[name="photo"]').attr("src","/static/img/upload.png").attr("width","").attr("height","").end();
-        //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
-        //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
-        //$clone.find('[name="photo"]').attr("name", "photo[" + index_5_1 + "]").end();
-        //$clone.find('[name="newuserpetlike"]').attr("name", "newuserpetlike[" + index_5_1 + "]").end();
+            if ($(".addmorepet").length > 1) {
+                $(".remove").removeClass('hide');
+            }
+            index_5_1++;
+        });
 
-        if ($(".addmorepet").length > 1) {
-            $(".remove").removeClass('hide');
-        }
-        index_5_1++;
-    });
+        $(".remove").click(function () {
+            var flag = $(".addmorepet").length;
+            if (flag > 1) {
+                $(".addmorepet:last").remove()
+            }
+            if (flag === 2) {
+                $(".remove").addClass('hide');
 
-    $(".remove").click(function () {
-        var flag = $(".addmorepet").length;
-        if (flag > 1) {
-            $(".addmorepet:last").remove()
-        }
-        if (flag === 2) {
-            $(".remove").addClass('hide');
+            }
+        });
 
-        }
-    });
+        //上传照片的方法
 
+        $('.file0').change(function () {
+             var objUrl = getObjectURL(this.files[0]);
+            if (objUrl ){
+                $('.img0').attr("src", objUrl);
+                $('.img0').removeClass("hide");
+                $(".img0").attr("width", 250);
+                $(".img0").attr("height", 175);
+            }
+            });
     //关联家庭的浮层显示消失方法
 
     $('.relatefamily').click(function () {
@@ -153,7 +153,7 @@
         $(".family_sub").click(function () {
             $("#fullScreen,#floatLayer").addClass('hide');
             //window.location.reload();
-           //parent.location.reload();
+            //parent.location.reload();
 
         });
     });
@@ -166,7 +166,7 @@
     $('#relauser').click(function () {
         $('[name="sele"]').each(function (i, e) {
             if ($(e).prop("checked")) {
-                var data=$(e).val().split(',');
+                var data = $(e).val().split(',');
                 $('#username').val(data[0]);
                 $('#telephone').val(data[1]);
                 $('#addr').val(data[2]);
@@ -180,4 +180,29 @@
     $(function () {
         $('.ale').scroll();
     })
+
+    //订单状态
+    /**
+    $(function () {
+        var $sta=$('.casestatua').text();
+        console.log($sta);
+        $('.casestatua').each(function (i,e) {
+            console.log($(e).text());
+           if ($(e).text()==1){
+            $(e).text('寄养中')
+
+        }
+        if ($(e).text()==2){
+            $(e).text('待寄养')
+        }
+        if ($(e).text()==3){
+            $(e).text('已完成')
+        }
+        if ($(e).text()==2){
+            $(e).text('待寄养')
+        }
+        })
+
+    })
+    **/
 </script>

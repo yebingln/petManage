@@ -7,7 +7,7 @@ class Account(models.Model):
 
 class UserInfo(models.Model):
     name=models.CharField(max_length=50,null=True)
-    telephone=models.IntegerField()
+    telephone=models.CharField(max_length=50,null=True)
     # password=models.CharField(max_length=50)
     adress=models.CharField(max_length=50,null=True)
 
@@ -37,17 +37,22 @@ class order(models.Model):
         (1, u'是'),
         (2, u'否'),
     )
-    cashfinish=models.CharField(choices=finished,max_length=10,null=True)
-    finishincome=models.CharField(max_length=50,null=True)
+    cashfinish=models.CharField(choices=finished,max_length=10,null=True)  #是否完成收费
     fre = (
         (1, u'天/次'),
         (2, u'周/次'),
         (2, u'月/次'),
     )
-    frequency=models.CharField(max_length=50,choices=fre,null=True)
-    # ortele=models.ForeignKey('UserInfo')
-class Income(models.Model):
-    income=models.CharField(max_length=50,null=True)
+    frequency=models.CharField(max_length=50,choices=fre,null=True)  #频次
+    income=models.CharField(max_length=50,null=True)    #预计收入
+    stat=(
+        (1,u'寄养中'),
+        (2,u'待寄养'),
+        (3,u'已完成'),
+        (4,u'已取消'),
+    )
+    status=models.CharField(max_length=50,choices=stat,null=True)  #订单状态
+class PayOut(models.Model):
     pay=models.CharField(max_length=50,null=True)
     paytime=models.DateTimeField(null=True)
     payreasion=models.CharField(max_length=50,null=True)

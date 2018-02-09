@@ -1,0 +1,64 @@
+{% extends 'master/layout.html' %}
+{% block content %}
+    <div class="case_relate">
+        <div class="newcasetitle">
+            <p>待寄养订单</p>
+        </div>
+        <div class="twoline">
+            <span>家长姓名</span>
+            <input type="text" name="username" id="pendindusername"/>
+
+            <span>电话</span>
+            <input type="text" name="telephone" id="pendingtelephone"/>
+            <a style="font-size: smaller;margin-left: 10px" class="relatefamily">关联家庭</a>
+        </div>
+
+        <br/>
+        <div class="twoline">
+            <span>联系地址</span>
+            <input style="width: 44.2%" type="text" name="address" id="pendingaddr"/>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>宠物姓名</span>
+            <input type="text" name="petname" id="pendingpetname"/>
+            <span>宠物类型</span>
+            <select name="pettype" id="pendingpett">
+                <option value="1">猫</option>
+                <option value="2">狗</option>
+                <option value="3">小宠</option>
+                <option value="4">其他</option>
+            </select>
+
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>寄养时间</span>
+            <input type="text" style="width: 180px" name="starttime" id="pendingmydatepicker"> ~ <input id="pendingmydatepicker2"
+                                                                                                 style="width: 180px"
+                                                                                                 type="text"
+                                                                                                 name="endtime">
+
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>预计收入</span>
+            <input type="text" name="income">
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>是否完成收费</span>
+            <input type="radio" name="finishincome" value="1">是
+            <input type="radio" name="finishincome" style="margin-left: 150px" value="2">否
+        </div>
+        <br/>
+        <div style="margin-top: 30px">
+                <span style="line-height: 180px;font-size: 20px">取消原因</span>
+                <span><textarea type="text" name="cancelreasion" style="width:650px;height: 150px"></textarea></span>
+            </div>
+        <div class="twoline">
+            <input type="submit" value="保存" id="newcase">
+            <input type="submit" value="取消原因" id="newcase">
+        </div>
+    </div>
+{% endblock %}

@@ -70,7 +70,7 @@
 }
 
 .family_sub {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 180px;
     background-color: sandybrown;
     color: dimgray;
@@ -320,14 +320,16 @@ h1 a {
     margin-left: 40%;
     color: coral;
     margin-top: 10px;
+    margin-bottom: 13px;
 }
 
 .family_tab {
-    border: 1px red solid;
+    /*border: 1px red solid;*/
     width: 85%;
     margin-left: 7.5%;
     font-size: 25px;
     margin-top: 20px;
+    line-height: 40px;
 }
 
 td {
@@ -340,8 +342,10 @@ td {
     height:400px;
     font-size: 20px;
     line-height: 70px;
+    height: 100px;
 
 }
+
 .caselist_title{
     background-color: #f39800;
     color: white;
@@ -354,4 +358,8 @@ td {
 .caselist_page a{
     color: black;
     margin-left: 5px;
+}
+input[type='radio']{
+    height: 20px;
+    width: 20px;
 }

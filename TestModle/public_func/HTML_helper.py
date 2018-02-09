@@ -51,10 +51,12 @@ def pager(page,all_page_count):
         else:
             a_html = "<a href='/caselist/%d'>%d</a>" % (i + 1, i + 1)
         page_html.append(a_html)
-    next_page = "<a href='/caselist/%d' >下一页</a>" % (page + 1)  # 下一页
+    if page+1>=end:
+        next_page = "<a href='#' >下一页</a>"  # 下一页
+    else:
+        next_page = "<a href='/caselist/%d' >下一页</a>" % (page + 1)  # 下一页
     page_html.append(next_page)
     end_html="<a href='/caselist/%d'>尾页</a>"%(all_page_count)    #显示尾页
     page_html.append(end_html)
     page_string=mark_safe(''.join(page_html))
-    print(page_string)
     return page_string

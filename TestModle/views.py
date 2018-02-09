@@ -65,8 +65,10 @@ def test(request):
     return render_to_response('test.html',{'a':cc})
 
 def newcase(request):
+    global stat
     if request.method == 'GET':
         allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname','adress','pet_user__type')
+        # allusr=models.UserInfo.objects.all()
         return render_to_response('casemanagelist/newcase.html', {'da': allusr})
 
     elif request.method=='POST':
@@ -74,20 +76,24 @@ def newcase(request):
         end = request.POST.get('endtime')
         income = request.POST.get('income')
         finishincome = request.POST.get('finishincome')
+        finishincome=int(finishincome)
         telephone=request.POST.get('telephone')
         petname=request.POST.get('petname')
+
         orduser=models.UserInfo.objects.filter(telephone=telephone,pet_user__petname=petname).values('id','pet_user__id')
         for i in orduser:
             i=i
-            models.order.objects.create(starttime=start, endtime=end, finishincome=finishincome,ord_user_id=i['id'],ord_pet_id=i['pet_user__id'])
+            if finishincome==1:
+                models.order.objects.create(starttime=start, endtime=end, cashfinish=finishincome,income=income,
+                                            ord_user_id=i['id'],ord_pet_id=i['pet_user__id'],status=1)
+            elif finishincome==2:
+                models.order.objects.create(starttime=start, endtime=end, cashfinish=finishincome, income=income,
+                                            ord_user_id=i['id'], ord_pet_id=i['pet_user__id'], status=2)
+
         return redirect('/caselist/')
 
 def processingcase(request):
     return render_to_response('casemanagelist/processingcase.html')
-def caselist(request):
-    c=models.order.objects.all().values('id','starttime','endtime')
-    print(c)
-    return render_to_response('casemanagelist/caselist.html')
 def newuser(request):
     if request.method=='POST':
         username=request.POST.get('username')
@@ -115,16 +121,42 @@ def re(request):
 
 # 订单列表
 def caselist(request,page):
+    ret={'resul':'','page':''}
+    per_item = common.try_int(5, 5)  # 获取cookie
+    count = models.order.objects.count()
+    page = common.try_int(page, 1)
+    pageobj = HTML_helper.Pageinfo(page, count, per_item)
+    resul = models.order.objects.all()[pageobj.start():pageobj.end()]
+    page_string = HTML_helper.pager(page, pageobj.all_page_count())
+    ret['resul'] = resul
+    ret['page'] = page_string
     if request.method=='GET':
-        per_item = common.try_int(5, 5)  # 获取cookie
-        print(per_item)
-        count =models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime').count()
-        page = common.try_int(page, 1)
-        pageobj = HTML_helper.Pageinfo(page, count, per_item)
-        resul = models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime')[pageobj.start():pageobj.end()]
-        page_string = HTML_helper.pager(page, pageobj.all_page_count())
-        # ret = {'da': allusr, 'page': page_string}
-        # response = render_to_response('page.html', ret)
-        # resul=models.order.objects.values('id','ord_user__name','ord_user__telephone','ord_pet__type','ord_pet__petname','starttime','endtime')
-        print(resul)
-        return render_to_response('casemanagelist/caselist.html',{'resul':resul,'page':page_string})
+        return render_to_response('casemanagelist/caselist.html',ret)
+    elif request.method=='POST':
+        objlist=[]
+        listid=request.POST.get('caselistcaseid')
+        listname=request.POST.get('caselistname')
+        listtel=request.POST.get('caselisttelephone')
+        if listid!='':
+            filid=models.order.objects.filter(id=int(listid))
+            objlist.append(filid)
+        if listname!='':
+            filname = models.order.objects.filter(ord_user__name=listname)
+            objlist.append(filname)
+        if listtel!='':
+            filtel=models.order.objects.filter(ord_user__telephone=listtel)
+            objlist.append(filtel)
+        for obj in objlist:
+            if obj:
+                ret['obj']=obj
+                print('no空')
+                return render_to_response('casemanagelist/caselist.html', ret)
+        return render_to_response('casemanagelist/caselist.html', ret)
+
+
+
+
+
+#待寄养家庭
+def pendingcase(request):
+    return render_to_response('casemanagelist/pendingcase.html')
