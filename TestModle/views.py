@@ -158,5 +158,16 @@ def caselist(request,page):
 
 
 #待寄养家庭
-def pendingcase(request):
-    return render_to_response('casemanagelist/pendingcase.html')
+def pendingcase(request,id):
+    obj=models.order.objects.get(id=int(id))
+    if request.method=='GET':
+        return render_to_response('casemanagelist/pendingcase.html',{'obj':obj})
+    else:
+        finish=int(request.POST.get('finishincome'))
+        print(finish)
+        if finish==2:
+            return redirect('/caselist/')
+        elif finish==1:
+            models.order.objects.filter(id=id).update(status=1)
+            return redirect('/caselist/')
+    return HttpResponse('OK')

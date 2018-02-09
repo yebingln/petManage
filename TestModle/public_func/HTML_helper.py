@@ -51,7 +51,7 @@ def pager(page,all_page_count):
         else:
             a_html = "<a href='/caselist/%d'>%d</a>" % (i + 1, i + 1)
         page_html.append(a_html)
-    if page+1>=end:
+    if page+1>end:
         next_page = "<a href='#' >下一页</a>"  # 下一页
     else:
         next_page = "<a href='/caselist/%d' >下一页</a>" % (page + 1)  # 下一页

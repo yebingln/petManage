@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^caselist/(\d*)', views.caselist),
     url(r'^newuser/$', views.newuser),
     url(r'^re/$', views.re),
-    url(r'^casestatus/2/$', views.pendingcase),
+    url(r'^casestatus/2/(\d*)$', views.pendingcase),
 ]

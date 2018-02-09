@@ -1,4 +1,5 @@
 {% extends 'master/layout.html' %}
+{% load wrapper %}
 {% block content %}
     <div class="case_relate">
         <div class="newcasetitle">
@@ -6,50 +7,44 @@
         </div>
         <div class="twoline">
             <span>家长姓名</span>
-            <input type="text" name="username" id="pendindusername"/>
+            <input type="text" name="username" id="pendindusername" value={{ obj.ord_user.name }} />
 
             <span>电话</span>
-            <input type="text" name="telephone" id="pendingtelephone"/>
+            <input type="text" name="telephone" id="pendingtelephone" value={{ obj.ord_user.telephone }} />
             <a style="font-size: smaller;margin-left: 10px" class="relatefamily">关联家庭</a>
         </div>
 
         <br/>
         <div class="twoline">
             <span>联系地址</span>
-            <input style="width: 44.2%" type="text" name="address" id="pendingaddr"/>
+            <input style="width: 44.2%" type="text" name="address" id="pendingaddr" value={{ obj.ord_user.adress }} />
         </div>
         <br/>
         <div class="twoline">
             <span>宠物姓名</span>
-            <input type="text" name="petname" id="pendingpetname"/>
+            <input type="text" name="petname" id="pendingpetname" value={{ obj.ord_pet.petname }} />
             <span>宠物类型</span>
-            <select name="pettype" id="pendingpett">
-                <option value="1">猫</option>
-                <option value="2">狗</option>
-                <option value="3">小宠</option>
-                <option value="4">其他</option>
-            </select>
-
+            <input type="text" name="pettype" id="pendingpett" value={{ obj.ord_pet.pettype | getvalue:obj.ord_pet.type}} />
         </div>
         <br/>
         <div class="twoline">
             <span>寄养时间</span>
-            <input type="text" style="width: 180px" name="starttime" id="pendingmydatepicker"> ~ <input id="pendingmydatepicker2"
+            <input type="text" style="width: 180px" name="starttime" id="pendingmydatepicker" value={{ obj.starttime|date:"Y-m-d" }}> ~ <input id="pendingmydatepicker2"
                                                                                                  style="width: 180px"
                                                                                                  type="text"
-                                                                                                 name="endtime">
+                                                                                                 name="endtime" value={{ obj.endtime|date:"Y-m-d" }} />
 
         </div>
         <br/>
         <div class="twoline">
             <span>预计收入</span>
-            <input type="text" name="income">
+            <input type="text" name="income" value={{ obj.income }}>
         </div>
         <br/>
         <div class="twoline">
             <span>是否完成收费</span>
-            <input type="radio" name="finishincome" value="1">是
-            <input type="radio" name="finishincome" style="margin-left: 150px" value="2">否
+            <input type="radio" name="finishincome" value="1" >是
+            <input type="radio" name="finishincome" style="margin-left: 150px" value="2" checked="checked">否
         </div>
         <br/>
         <div style="margin-top: 30px">

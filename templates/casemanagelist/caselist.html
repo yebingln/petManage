@@ -39,7 +39,7 @@
                         <td>{{ j.ord_pet.petname }}</td>
                         <td>{{ j.starttime|date:"Y-m-d" }}~{{ j.endtime|date:"Y-m-d" }}</td>
                         <td>
-                            <a href="/casestatus/{{ j.status }}" >{{ j.stat | getvalue:j.status }}</a>
+                            <a href="/casestatus/{{ j.status }}/{{ j.id }}" >{{ j.stat | getvalue:j.status }}</a>
                             <a>删除</a>
                         </td>
                     </tr>
@@ -54,7 +54,7 @@
                     <td>{{ i.ord_pet.petname }}</td>
                     <td>{{ i.starttime|date:"Y-m-d" }}~{{ i.endtime|date:"Y-m-d" }}</td>
                     <td>
-                        <a href="/casestatus/{{ i.status }}">{{ i.stat | getvalue:i.status }}</a>
+                        <a href="/casestatus/{{ i.status }}/{{ i.id }}">{{ i.stat | getvalue:i.status }}</a>
                             <a>删除</a>
                     </td>
                     </tr>
