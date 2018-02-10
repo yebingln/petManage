@@ -4,6 +4,7 @@
     <div class="case_relate">
         <div class="newcasetitle">
             <p>待寄养订单</p>
+
         </div>
         <div class="twoline">
             <span>家长姓名</span>
@@ -43,17 +44,19 @@
         <br/>
         <div class="twoline">
             <span>是否完成收费</span>
-            <input type="radio" name="finishincome" value="1" >是
-            <input type="radio" name="finishincome" style="margin-left: 150px" value="2" checked="checked">否
+            <input type="radio" name="finishincome" value="1" class="finishyes">是
+            <input type="radio" name="finishincome" style="margin-left: 150px" value="2" checked="checked" class="finishno">否
         </div>
         <br/>
-        <div style="margin-top: 30px">
+        <div style="margin-top: 30px" class="cancelreasion">
                 <span style="line-height: 180px;font-size: 20px">取消原因</span>
                 <span><textarea type="text" name="cancelreasion" style="width:650px;height: 150px"></textarea></span>
             </div>
-        <div class="twoline">
-            <input type="submit" value="保存" id="newcase">
-            <input type="submit" value="取消原因" id="newcase">
+        <div >
+{#            <input type="button" value="保存" id="newcase" onclick="savecase()">#}
+            <span onclick="savecase()" class="buttoncss">保存</span>
+            <span onclick="cancelca()" class="cancelcase">取消订单</span>
+{#            <input type="button" value="取消订单" id="newcase" class="cancelcase" onclick="cancelca()">#}
         </div>
     </div>
 {% endblock %}

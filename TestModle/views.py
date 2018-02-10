@@ -164,10 +164,19 @@ def pendingcase(request,id):
         return render_to_response('casemanagelist/pendingcase.html',{'obj':obj})
     else:
         finish=int(request.POST.get('finishincome'))
+        cancelreasion=request.POST.get('cancelreasion')
         print(finish)
         if finish==2:
-            return redirect('/caselist/')
+            if cancelreasion=='':
+                return redirect('/caselist/')
+            else:
+                ord=models.order.objects.filter(id=id)
+                ord.update(status=4)
+                ord.update(cancelreasion=cancelreasion)
+                return redirect('/caselist')
         elif finish==1:
-            models.order.objects.filter(id=id).update(status=1)
+            cc=models.order.objects.filter(id=id)
+            cc.update(status=1)
+            cc.update(cashfinish=finish)
             return redirect('/caselist/')
     return HttpResponse('OK')

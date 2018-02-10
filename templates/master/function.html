@@ -96,53 +96,53 @@
     //添加更多宠物的方法
 
     var index_5_1 = 1;
-        $(".add").click(function () {
+    $(".add").click(function () {
 
-            var $other = $("#addmorepet"),
-                $clone = $other
-                    .clone()
-                    //.removeClass('hide')
-                    .removeAttr('id')
-                    .insertAfter($(".addmorepet:last"));
-            $clone.find('[name="petname"]').val("").end();
-            $clone.find('[name="pettype"]').val("").end();
-            $clone.find('[name="file0"]').val("").end();
-            $clone.find('[name="newuserpetlike"]').val("").end();
-            //$clone.find('[name="photo"]').val("").end();
-            //$clone.find('[name="photo"]').attr("src","/static/img/upload.png").attr("width","").attr("height","").end();
-            //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
-            //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
-            $clone.find('[name="photo"]').attr("name", "photo" + index_5_1).end();
-            //$clone.find('[name="newuserpetlike"]').attr("name", "newuserpetlike[" + index_5_1 + "]").end();
+        var $other = $("#addmorepet"),
+            $clone = $other
+                .clone()
+                //.removeClass('hide')
+                .removeAttr('id')
+                .insertAfter($(".addmorepet:last"));
+        $clone.find('[name="petname"]').val("").end();
+        $clone.find('[name="pettype"]').val("").end();
+        $clone.find('[name="file0"]').val("").end();
+        $clone.find('[name="newuserpetlike"]').val("").end();
+        //$clone.find('[name="photo"]').val("").end();
+        //$clone.find('[name="photo"]').attr("src","/static/img/upload.png").attr("width","").attr("height","").end();
+        //$clone.find('[name="petname"]').attr("name", "petname[" + index_5_1 + "]").end();
+        //$clone.find('[name="pettype"]').attr("name", "pettype[" + index_5_1 + "]").end();
+        $clone.find('[name="photo"]').attr("name", "photo" + index_5_1).end();
+        //$clone.find('[name="newuserpetlike"]').attr("name", "newuserpetlike[" + index_5_1 + "]").end();
 
-            if ($(".addmorepet").length > 1) {
-                $(".remove").removeClass('hide');
-            }
-            index_5_1++;
-        });
+        if ($(".addmorepet").length > 1) {
+            $(".remove").removeClass('hide');
+        }
+        index_5_1++;
+    });
 
-        $(".remove").click(function () {
-            var flag = $(".addmorepet").length;
-            if (flag > 1) {
-                $(".addmorepet:last").remove()
-            }
-            if (flag === 2) {
-                $(".remove").addClass('hide');
+    $(".remove").click(function () {
+        var flag = $(".addmorepet").length;
+        if (flag > 1) {
+            $(".addmorepet:last").remove()
+        }
+        if (flag === 2) {
+            $(".remove").addClass('hide');
 
-            }
-        });
+        }
+    });
 
-        //上传照片的方法
+    //上传照片的方法
 
-        $('.file0').change(function () {
-             var objUrl = getObjectURL(this.files[0]);
-            if (objUrl ){
-                $('.img0').attr("src", objUrl);
-                $('.img0').removeClass("hide");
-                $(".img0").attr("width", 250);
-                $(".img0").attr("height", 175);
-            }
-            });
+    $('.file0').change(function () {
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+            $('.img0').attr("src", objUrl);
+            $('.img0').removeClass("hide");
+            $(".img0").attr("width", 250);
+            $(".img0").attr("height", 175);
+        }
+    });
     //关联家庭的浮层显示消失方法
 
     $('.relatefamily').click(function () {
@@ -179,6 +179,42 @@
 
     $(function () {
         $('.ale').scroll();
-    })
+        $('.finishyes').click(function () {
+            $('.cancelreasion').addClass('hide')
+            $('.cancelcase').addClass('hide')
+        });
+        $('.finishno').click(function () {
+            $('.cancelreasion').removeClass('hide')
+            $('.cancelcase').removeClass('hide')
+        });
+        $('.cancelcase').click(function () {
+            var cancel = $('.cancelreasion').val();
+            if (cancel == null) {
+                alert('不能为空');
+                return false
+            }
+        })
+    });
+
+    function savecase() {
+        $("#tijiao").removeAttr('action');
+        $('.cancelreasion textarea').val('');
+        {#$("#tijiao").attr('action', '/caselist');#}
+        $("#tijiao").submit();
+    }
+
+    function cancelca() {
+        $("#tijiao").removeAttr('action');
+        var cancel = $('.cancelreasion textarea').val();
+        if (cancel == '') {
+            alert('取消原因不能为空');
+            $('.cancelreasion textarea').addClass('borred');
+            {#$("#tijiao").attr('action', '/caselist');#}
+            return false
+        }
+        else
+            $('.cancelreasion textarea').removeClass('borred');
+            $("#tijiao").submit();
+    }
 
 </script>

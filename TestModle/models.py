@@ -27,7 +27,7 @@ class Pet(models.Model):
 
 class order(models.Model):
     ord_user=models.ForeignKey('UserInfo',related_name='order_user',on_delete=models.CASCADE,null=True)
-    ord_pet=models.ForeignKey('Pet',related_name='order_pet',null=True)
+    ord_pet=models.ForeignKey('Pet',related_name='order_pet',null=True,on_delete=models.CASCADE)
     creat_date = models.DateTimeField(auto_now_add=True,null=True)
     update_data = models.DateTimeField(auto_now=True, error_messages={'invalid': '日期格式错误'},null=True)
     starttime=models.DateTimeField(null=True)
