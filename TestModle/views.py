@@ -91,9 +91,6 @@ def newcase(request):
                                             ord_user_id=i['id'], ord_pet_id=i['pet_user__id'], status=2)
 
         return redirect('/caselist/')
-
-def processingcase(request):
-    return render_to_response('casemanagelist/processingcase.html')
 def newuser(request):
     if request.method=='POST':
         username=request.POST.get('username')
@@ -180,3 +177,30 @@ def pendingcase(request,id):
             cc.update(cashfinish=finish)
             return redirect('/caselist/')
     return HttpResponse('OK')
+def processingcase(request,id):
+    obj=models.order.objects.get(id=int(id))
+    if request.method=='GET':
+        return render_to_response('casemanagelist/processingcase.html',{'obj':obj})
+    else:
+        petposition=request.POST.get('petposition')
+        footpositon=request.POST.get('footposition')
+        print(footpositon)
+        models.order.objects.filter(id=id).update(petposition=petposition, footposition=footpositon)
+        if ('savepro') in request.POST:
+            return redirect('/caselist/')
+        elif ('finishca') in request.POST:
+            models.order.objects.filter(id=id).update(status=3)
+            return redirect('/caselist/')
+
+def finishcase(request,id):
+    obj = models.order.objects.get(id=int(id))
+    if request.method == 'GET':
+        return render_to_response('casemanagelist/finishcase.html', {'obj': obj})
+    else:
+        return redirect('/caselist')
+def cancelcase(request,id):
+    obj = models.order.objects.get(id=int(id))
+    if request.method == 'GET':
+        return render_to_response('casemanagelist/cancelcase.html', {'obj': obj})
+    else:
+        return redirect('/caselist')

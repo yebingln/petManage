@@ -30,4 +30,7 @@ urlpatterns = [
     url(r'^newuser/$', views.newuser),
     url(r'^re/$', views.re),
     url(r'^casestatus/2/(\d*)$', views.pendingcase),
+    url(r'^casestatus/1/(\d*)$', views.processingcase),
+    url(r'^casestatus/3/(\d*)$', views.finishcase),
+    url(r'^casestatus/4/(\d*)$', views.cancelcase),
 ]

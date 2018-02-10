@@ -194,7 +194,8 @@
                 alert('不能为空');
                 return false
             }
-        })
+        });
+        $('.readonly input').attr('disabled','disabled');
     });
 
     function savecase() {
@@ -217,5 +218,12 @@
             $('.cancelreasion textarea').removeClass('borred');
             $("#tijiao").submit();
     }
-
+    function saveprocase() {
+        $("#tijiao").removeAttr('action');
+        $("#tijiao").submit()
+    }
+    function finishcase() {
+        $("#tijiao").removeAttr('action');
+        $("#tijiao").submit()
+    }
 </script>

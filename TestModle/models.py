@@ -52,11 +52,6 @@ class order(models.Model):
         (4,u'已取消'),
     )
     status=models.CharField(max_length=50,choices=stat,null=True)  #订单状态
-class PayOut(models.Model):
-    pay=models.CharField(max_length=50,null=True)
-    paytime=models.DateTimeField(null=True)
-    payreasion=models.CharField(max_length=50,null=True)
-class position(models.Model):
     pet_po = (
         (1, u'1号房'),
         (2, u'2号房'),
@@ -65,7 +60,7 @@ class position(models.Model):
         (5, u'5号房'),
         (6, u'6号房'),
     )
-    petposition=models.CharField(max_length=50,choices=pet_po,default=1,null=True)
+    petposition=models.CharField(max_length=50,choices=pet_po,null=True)
     foot_po = (
         (1, u'1号食物柜'),
         (2, u'2号食物柜'),
@@ -74,5 +69,11 @@ class position(models.Model):
         (5, u'5号食物柜'),
         (6, u'6号食物柜'),
     )
-    footposition=models.CharField(max_length=50,choices=foot_po,default=1,null=True)
+    footposition=models.CharField(max_length=50,choices=foot_po,null=True)
+class PayOut(models.Model):
+    pay=models.CharField(max_length=50,null=True)
+    paytime=models.DateTimeField(null=True)
+    payreasion=models.CharField(max_length=50,null=True)
+
+
 

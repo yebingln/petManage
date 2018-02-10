@@ -1,10 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'master/layout.html' %}
+{% load wrapper %}
+{% block content %}
+    <div class="readonly">
+        <div class="newcasetitle">
+            <p>已完成订单</p>
+        </div>
+        <div class="twoline">
+            <span>家长姓名</span>
+            <input type="text" name="username" value={{ obj.ord_user.name }}>
+            <span>电话</span>
+            <input type="text" name="telephone" value={{ obj.ord_user.telephone }}>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>联系地址</span>
+            <input style="width: 44.2%" type="text" name="address" value={{ obj.ord_user.adress }}>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>宠物姓名</span>
+            <input type="text" name="petname" value={{ obj.ord_pet.petname }}>
+            <span>宠物类型</span>
+            <input type="text" name="pettype" value={{ obj.ord_pet.pettype | getvalue:obj.ord_pet.type }}/>
+        </div>
+        <div class="twoline">
+            <span>寄养时间</span>
+            <input type="text" name='starttime' value={{ obj.starttime|date:"Y-m-d" }}> ~ <input type="text"
+                                                                                                 name="endtime"
+                                                                                                 value={{ obj.endtime|date:"Y-m-d" }}>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>预计收入</span>
+            <input type="text" name="income" value={{ obj.income }}>
+        </div>
+        <br/>
+        <div class="twoline">
+            <span>是否完成收费</span>
+            <input type="radio" name="finishincome" checked="checked" readonly="readonly">是
+            <input type="radio" name="finishincome" style="margin-left: 150px">否
+        </div>
 
-</body>
-</html>
+        <br/>
+        <div class="twoline">
+            <span>宠物位置</span>
+            <input type="text" value={{ obj.pet_po | getvalue:obj.petposition }} />
+            <span>食物位置</span>
+            <input type="text" value={{ obj.foot_po | getvalue:obj.footposition }} />
+        </div>
+        </div>
+        <br/>
+        <div class="twoline">
+            <input type="submit" value="返回">
+
+        </div>
+
+{% endblock %}
