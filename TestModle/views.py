@@ -5,8 +5,15 @@ from . import models
 from . import forms
 from . import wraper
 import json
+import os
+
+import sys
 from .public_func import common
 from .public_func import HTML_helper
+from django.core.files.base import ContentFile
+
+
+
 
 # Create your views here.
 
@@ -54,15 +61,14 @@ def home2(request):
     return render_to_response('Home2.html')
 # @wraper.Loginwraper
 def test(request):
-    cc=models.position
-    c=models.position.objects.create(petposition=1,footposition=1)
+    c=models.order.objects.create(petposition=1,footposition=1)
     c.save()
     print(c.get_petposition_display())
     id=models.UserInfo.objects.filter(telephone=12324).values('id')
     for i in id:
         print(i['id'])
 
-    return render_to_response('test.html',{'a':cc})
+    return render_to_response('test.html',{'a':id})
 
 def newcase(request):
     global stat
@@ -100,6 +106,7 @@ def newuser(request):
         pettype=request.POST.getlist('pettype')
         newuserpetlike=request.POST.getlist('newuserpetlike')
         file0=request.POST.getlist('file0')
+
         models.UserInfo.objects.create(name=username,telephone=telephone,adress=address)
         id=models.UserInfo.objects.filter(telephone=telephone).values('id')
         for i in id:
@@ -109,7 +116,13 @@ def newuser(request):
             models.Pet.objects.create(petname=i[0], type=i[1], like=i[2], photo=i[3],pethost_id=host_id)
         return HttpResponse('ok')
     return render_to_response('familymanagelist/newuser.html')
-
+#
+# def newuser(request):
+#     if request.method == 'POST':
+#         models.Pet.objects.create(photo=request.FILES['file0'])
+#         return HttpResponse('OK')
+#     else:
+#         return render_to_response('familymanagelist/newuser.html')
 def re(request):
     da=models.UserInfo.objects.all()
     allusr = models.UserInfo.objects.values('id', 'name', 'telephone', 'pet_user__petname')
@@ -117,17 +130,21 @@ def re(request):
     return render_to_response('casemanagelist/relatfamily.html',{'da':allusr})
 
 # 订单列表
-def caselist(request,page):
+def caselist(request,pageid):
     ret={'resul':'','page':''}
     per_item = common.try_int(5, 5)  # 获取cookie
     count = models.order.objects.count()
-    page = common.try_int(page, 1)
+    page = common.try_int(pageid, 1)
     pageobj = HTML_helper.Pageinfo(page, count, per_item)
     resul = models.order.objects.all()[pageobj.start():pageobj.end()]
-    page_string = HTML_helper.pager(page, pageobj.all_page_count())
+    page_string = HTML_helper.pager(page, pageobj.all_page_count(),'caselist')
     ret['resul'] = resul
     ret['page'] = page_string
     if request.method=='GET':
+        print(pageid)
+        if pageid!='':
+            models.order.objects.filter(id=int(pageid)).delete()
+            return redirect('/caselist/')
         return render_to_response('casemanagelist/caselist.html',ret)
     elif request.method=='POST':
         objlist=[]
@@ -143,11 +160,13 @@ def caselist(request,page):
         if listtel!='':
             filtel=models.order.objects.filter(ord_user__telephone=listtel)
             objlist.append(filtel)
-        for obj in objlist:
-            if obj:
-                ret['obj']=obj
-                print('no空')
-                return render_to_response('casemanagelist/caselist.html', ret)
+        if 'caselsitsearch' in request.POST:
+            for obj in objlist:
+                print(1)
+                if obj:
+                    ret['obj'] = obj
+                    print('no空')
+                    return render_to_response('casemanagelist/caselist.html', ret)
         return render_to_response('casemanagelist/caselist.html', ret)
 
 
@@ -204,3 +223,44 @@ def cancelcase(request,id):
         return render_to_response('casemanagelist/cancelcase.html', {'obj': obj})
     else:
         return redirect('/caselist')
+def familylist(request,page1):
+
+    ret = {'resul': '', 'page': ''}
+    per_item = common.try_int(5, 5)  # 获取cookie
+    count = models.Pet.objects.count()
+    page = common.try_int(page1, 1)
+    pageobj = HTML_helper.Pageinfo(page, count, per_item)
+    resul = models.Pet.objects.all()[pageobj.start():pageobj.end()]
+    page_string = HTML_helper.pager(page, pageobj.all_page_count(),'familylist')
+    ret['resul'] = resul
+    ret['page'] = page_string
+    if not os.path.exists('static/photo'):
+        os.makedirs('static/photo')
+    else:
+        for i in resul:
+            m=os.path.join('static/photo',str(i.photo))
+            print(m)
+    if request.method == 'GET':
+        return render_to_response('familymanagelist/familylist.html', ret)
+    elif request.method == 'POST':
+        objlist = []
+        listname = request.POST.get('familylistname')
+        listtel = request.POST.get('familylisttel')
+        if listname != '':
+            filname = models.Pet.objects.filter(pethost__name=listname)
+            objlist.append(filname)
+        if listtel != '':
+            filtel = models.Pet.objects.filter(pethost__telephone=listtel)
+            objlist.append(filtel)
+        for obj in objlist:
+            if obj:
+                ret['obj'] = obj
+                print('no空')
+                return render_to_response('familymanagelist/familylist.html', ret)
+        return render_to_response('familymanagelist/familylist.html', ret)
+def updatuser(request,id):
+    return HttpResponse('OK')
+
+
+
+

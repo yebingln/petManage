@@ -23,7 +23,7 @@ class Pet(models.Model):
     type=models.CharField(max_length=10,choices=pettype,null=True)
     pethost=models.ForeignKey('UserInfo',related_name='pet_user',on_delete=models.CASCADE)
     like=models.CharField(max_length=200,null=True)
-    photo=models.ImageField(null=True)
+    photo=models.ImageField(null=True,upload_to='photo')
 
 class order(models.Model):
     ord_user=models.ForeignKey('UserInfo',related_name='order_user',on_delete=models.CASCADE,null=True)
@@ -75,5 +75,5 @@ class PayOut(models.Model):
     paytime=models.DateTimeField(null=True)
     payreasion=models.CharField(max_length=50,null=True)
 
-
-
+class Image(models.Model):
+    pass

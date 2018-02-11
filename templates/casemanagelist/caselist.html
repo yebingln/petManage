@@ -14,7 +14,7 @@
                 <input type="text" name="caselistname">
                 <span style=" margin-left: 55px;">联系电话</span>
                 <input type="text" name="caselisttelephone">
-                <input type="submit" value="搜索" class="search">
+                <input type="submit" value="搜索" class="search" name="caselsitsearch">
             </label>
             <a href="/newcase/" style="margin-left: 60px">新建订单</a>
         </div>
@@ -40,7 +40,7 @@
                         <td>{{ j.starttime|date:"Y-m-d" }}~{{ j.endtime|date:"Y-m-d" }}</td>
                         <td>
                             <a href="/casestatus/{{ j.status }}/{{ j.id }}" >{{ j.stat | getvalue:j.status }}</a>
-                            <a>删除</a>
+                            <a class="Deledata" href="/caselist/{{ j.id }}/">删除</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -55,7 +55,7 @@
                     <td>{{ i.starttime|date:"Y-m-d" }}~{{ i.endtime|date:"Y-m-d" }}</td>
                     <td>
                         <a href="/casestatus/{{ i.status }}/{{ i.id }}">{{ i.stat | getvalue:i.status }}</a>
-                            <a>删除</a>
+                            <a class="Deledata" href="/caselist/{{ i.id }}/" >删除</a>
                     </td>
                     </tr>
                     {% endfor %}

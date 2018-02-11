@@ -20,15 +20,15 @@ class Pageinfo(object):
             all_page_count = temp[0] + 1
         return all_page_count
 
-def pager(page,all_page_count):
+def pager(page,all_page_count,path):
     page_html=[]
-    first_page="<a href='caselist/%d'>首页</a>"%(1)     #显示首页
+    first_page="<a href='%s/%d'>首页</a>"%(path,1)     #显示首页
 
     page_html.append(first_page)
     if page<=1:
         pre_page="<a href='#'>上一页</a>"  #上一页
     else:
-        pre_page = "<a href='/caselist/%d'>上一页</a>" % (page-1)
+        pre_page = "<a href='/%s/%d'>上一页</a>" % (path,page-1)
     page_html.append(pre_page)
     #每页显示11个页码
     if all_page_count<11:
@@ -47,16 +47,16 @@ def pager(page,all_page_count):
                 end=page+5
     for i in range(begin,end):  #遍历所有页，对应跳转
         if page==i+1:
-            a_html="<a style='color:red' href='/caselist/%d'>%d</a>"%(i+1,i+1)
+            a_html="<a style='color:red' href='/%s/%d'>%d</a>"%(path,i+1,i+1)
         else:
-            a_html = "<a href='/caselist/%d'>%d</a>" % (i + 1, i + 1)
+            a_html = "<a href='/%s/%d'>%d</a>" % (path,i + 1, i + 1)
         page_html.append(a_html)
     if page+1>end:
         next_page = "<a href='#' >下一页</a>"  # 下一页
     else:
-        next_page = "<a href='/caselist/%d' >下一页</a>" % (page + 1)  # 下一页
+        next_page = "<a href='/%s/%d' >下一页</a>" % (path,page + 1)  # 下一页
     page_html.append(next_page)
-    end_html="<a href='/caselist/%d'>尾页</a>"%(all_page_count)    #显示尾页
+    end_html="<a href='/%s/%d'>尾页</a>"%(path,all_page_count)    #显示尾页
     page_html.append(end_html)
     page_string=mark_safe(''.join(page_html))
     return page_string

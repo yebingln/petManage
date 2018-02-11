@@ -1,0 +1,66 @@
+{% extends 'master/layout.html' %}
+{% load wrapper %}
+{% load static %}
+{% block content %}
+    <div>
+        <div class="newcasetitle">
+            <p>家庭/宠物列表</p>
+        </div>
+        <div class="oneline">
+            <label>
+
+                <span>家长姓名</span>
+                <input type="text" name="familylistname">
+                <span style=" margin-left: 55px;">联系电话</span>
+                <input type="text" name="familylisttel">
+                <input type="submit" value="搜索" class="search">
+            </label>
+            <a href="/newuser/" style="margin-left: 34%">新建家庭</a>
+        </div>
+        <div class="caselisttb">
+            <table class="caselist">
+                <tr class="caselist_title">
+                    <th>家庭编号</th>
+                    <th>家长姓名</th>
+                    <th>联系方式</th>
+                    <th>宠物类型</th>
+                    <th>宠物名字</th>
+                    <th>宠物照片</th>
+                    <th>状态</th>
+                </tr>
+                {% if not obj %}
+                {% for j in resul %}
+                    <tr class="casestatu">
+                        <td>{{ j.pethost.id }}</td>
+                        <td>{{ j.pethost.name}}</td>
+                        <td>{{ j.pethost.telephone }}</td>
+                        <td>{{ j.pettype|getvalue:j.type }}</td>
+                        <td>{{ j.petname }}</td>
+                        <td><img src="{{ j.photo.url }}"></td>
+                        <td>
+{#                            <a href="/casestatus/{{ j.status }}/{{ j.id }}" >{{ j.stat | getvalue:j.status }}</a>#}
+                            <a>删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    {% else %}
+                    {% for i in obj %}
+                    <tr>
+                    <td>{{ i.pethost.id }}</td>
+                    <td>{{ i.pethost.name }}</td>
+                    <td>{{ i.pethost.telephone }}</td>
+                    <td>{{ i.pettype|getvalue:i.type }}</td>
+                    <td>{{ i.petname }}</td>
+                    <td>{{ i.photo.url }}</td>
+                    <td>
+{#                        <a href="/casestatus/{{ i.status }}/{{ i.id }}">{{ i.stat | getvalue:i.status }}</a>#}
+                            <a>删除</a>
+                    </td>
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+            </table>
+        </div>
+        <div class="caselist_page">{{ page }}</div>
+    </div>
+{% endblock %}

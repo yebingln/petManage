@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from TestModle import views
-
+from petManage import settings
+from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login),
@@ -27,10 +28,15 @@ urlpatterns = [
     url(r'^newcase/$', views.newcase),
     url(r'^processingcase/$', views.processingcase),
     url(r'^caselist/(\d*)', views.caselist),
-    url(r'^newuser/$', views.newuser),
+    url(r'^newuser/', views.newuser),
+    url(r'^updateuser/(\d*)', views.updatuser),
     url(r'^re/$', views.re),
     url(r'^casestatus/2/(\d*)$', views.pendingcase),
     url(r'^casestatus/1/(\d*)$', views.processingcase),
     url(r'^casestatus/3/(\d*)$', views.finishcase),
     url(r'^casestatus/4/(\d*)$', views.cancelcase),
+    url(r'^familylist/(\d*)$', views.familylist),
+
+
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
