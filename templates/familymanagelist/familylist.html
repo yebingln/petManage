@@ -11,7 +11,7 @@
 
                 <span>家长姓名</span>
                 <input type="text" name="familylistname">
-                <span style=" margin-left: 55px;">联系电话</span>
+                <span style=" margin-left: 55px;">联系方式</span>
                 <input type="text" name="familylisttel">
                 <input type="submit" value="搜索" class="search">
             </label>
@@ -36,10 +36,11 @@
                         <td>{{ j.pethost.telephone }}</td>
                         <td>{{ j.pettype|getvalue:j.type }}</td>
                         <td>{{ j.petname }}</td>
-                        <td><img src="{{ j.photo.url }}"></td>
+{#                         <td>{{ j.photo.url }}</td>#}
+                        <td><img style="width:100px;height: 60px" src="{{j.photo.url }}" alt="" /></td>
                         <td>
-{#                            <a href="/casestatus/{{ j.status }}/{{ j.id }}" >{{ j.stat | getvalue:j.status }}</a>#}
-                            <a>删除</a>
+                            <a href="/updateuser/{{ j.id }}" >修改</a>
+                            <a href="/familylist/{{ j.id }}" >删除</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,10 +52,10 @@
                     <td>{{ i.pethost.telephone }}</td>
                     <td>{{ i.pettype|getvalue:i.type }}</td>
                     <td>{{ i.petname }}</td>
-                    <td>{{ i.photo.url }}</td>
+                    <td><img style="width:100px;height: 60px" src="{{i.photo.url }}" alt="" /></td>
                     <td>
-{#                        <a href="/casestatus/{{ i.status }}/{{ i.id }}">{{ i.stat | getvalue:i.status }}</a>#}
-                            <a>删除</a>
+                            <a href="/updateuser/{{ i.id }}" >修改</a>
+                            <a href="/familylist/{{ i.id }}">删除</a>
                     </td>
                     </tr>
                     {% endfor %}

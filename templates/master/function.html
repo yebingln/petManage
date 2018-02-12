@@ -72,6 +72,9 @@
         $('#mydatepicker').dcalendarpicker({
             format: 'yyyy-mm-dd'
         });
+        $('#mydatepicker3').dcalendarpicker({
+            format: 'yyyy-mm-dd'
+        });
         var $sele = $('#pettype').find('.spanpettype').html();
     });
 
@@ -196,6 +199,8 @@
             }
         });
         $('.readonly input').attr('disabled', 'disabled');
+        $('.updateusertype').val('{{ data1.type|safe }}')
+
     });
 
     function savecase() {

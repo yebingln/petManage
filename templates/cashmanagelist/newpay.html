@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'master/layout.html' %}
+{% block content %}
+    <div>
+        <div class="newcasetitle">
+            <p>新建支出</p>
+        </div>
+        <div class="twoline">
+            <span>支出时间</span>
+            <input type="text" name="payouttime" id="mydatepicker3"  style="width: 180px">
+        </div>
+        <br>
+        <div class="twoline">
+            <span>支出金额</span>
+            <input type="text" name="payoutcount">&nbsp;元
+        </div>
+        <br>
+        <div>
+            <span style="line-height: 180px;font-size: 20px">支出原因</span>
+            <span><textarea type="text" name="payoutreasion" style="width:650px;height: 150px"></textarea></span>
+        </div>
+        <div class="twoline">
+            <input type="submit" value="创建">
+        </div>
 
-</body>
-</html>
+    </div>
+{% endblock %}

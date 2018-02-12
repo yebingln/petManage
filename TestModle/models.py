@@ -23,7 +23,7 @@ class Pet(models.Model):
     type=models.CharField(max_length=10,choices=pettype,null=True)
     pethost=models.ForeignKey('UserInfo',related_name='pet_user',on_delete=models.CASCADE)
     like=models.CharField(max_length=200,null=True)
-    photo=models.ImageField(null=True,upload_to='photo')
+    photo=models.ImageField(null=True,upload_to='image')
 
 class order(models.Model):
     ord_user=models.ForeignKey('UserInfo',related_name='order_user',on_delete=models.CASCADE,null=True)
