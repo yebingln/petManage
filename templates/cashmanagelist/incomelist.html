@@ -10,13 +10,12 @@
 
                 <span>订单编号</span>
                 <input type="text" name="caselistcaseid">
-                <span style=" margin-left: 55px;">家长姓名</span>
+                <span style=" margin-left: 55px;">家长电话</span>
                 <input type="text" name="caselistname">
-                <span style=" margin-left: 55px;">联系电话</span>
-                <input type="text" name="caselisttelephone">
-                <input type="submit" value="搜索" class="search" name="caselsitsearch">
+                <span style=" margin-left: 55px;">日期</span>
+                <input type="text" id="mydatepicker4" name="caselisttelephone">
+                <input type="submit" value="搜索" class="search" name="caselsitsearch" style="margin-left: 20%">
             </label>
-            <a href="/newcase/" style="margin-left: 60px">新建订单</a>
         </div>
         <div class="caselisttb">
             <table class="caselist">
@@ -24,44 +23,53 @@
                     <th>订单编号</th>
                     <th>家长姓名</th>
                     <th>联系电话</th>
-                    <th>宠物类型</th>
-                    <th>宠物名字</th>
-                    <th>寄养日期</th>
-                    <th>状态</th>
+                    <th>收入日期</th>
+                    <th>收入金额(元)</th>
+                    <th>收入原因</th>
+                    <th>操作</th>
                 </tr>
                 {% if not obj %}
-                {% for j in resul %}
-                    <tr class="casestatu">
-                        <td>{{ j.id }}</td>
-                        <td>{{ j.ord_user.name }}</td>
-                        <td>{{ j.ord_user.telephone }}</td>
-                        <td>{{ j.ord_pet.type }}</td>
-                        <td>{{ j.ord_pet.petname }}</td>
-                        <td>{{ j.starttime|date:"Y-m-d" }}~{{ j.endtime|date:"Y-m-d" }}</td>
-                        <td>
-                            <a href="/casestatus/{{ j.status }}/{{ j.id }}" >{{ j.stat | getvalue:j.status }}</a>
-                            <a class="Deledata" href="/caselist/{{ j.id }}/">删除</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                    {% else %}
-                    {% for i in obj %}
-                    <tr>
-                    <td>{{ i.id }}</td>
-                    <td>{{ i.ord_user.name }}</td>
-                    <td>{{ i.ord_user.telephone }}</td>
-                    <td>{{ i.ord_pet.type }}</td>
-                    <td>{{ i.ord_pet.petname }}</td>
-                    <td>{{ i.starttime|date:"Y-m-d" }}~{{ i.endtime|date:"Y-m-d" }}</td>
-                    <td>
-                        <a href="/casestatus/{{ i.status }}/{{ i.id }}">{{ i.stat | getvalue:i.status }}</a>
-                            <a class="Deledata" href="/caselist/{{ i.id }}/" >删除</a>
-                    </td>
-                    </tr>
+                    {% for j in resul %}
+                        {% ifequal j.status '3' %}
+                            <tr class="casestatu">
+                                <td>{{ j.id }}</td>
+                                <td>{{ j.ord_user.name }}</td>
+                                <td>{{ j.ord_user.telephone }}</td>
+                                <td>{{ j.update_data|date:"Y-m-d" }}</td>
+                                <td>{{ j.income }}</td>
+                                <td>寄养收入</td>
+                                {#                        <td>{{ j.starttime|date:"Y-m-d" }}~{{ j.endtime|date:"Y-m-d" }}</td>#}
+                                <td>
+                                    <a href="/casestatus/{{ j.status }}/{{ j.id }}">查看</a>
+                                    {#                            <a class="Deledata" href="/caselist/{{ j.id }}/">查看</a>#}
+                                </td>
+                            </tr>
+                        {% endifequal %}
                     {% endfor %}
-            {% endif %}
+                {% else %}
+                    {% for i in obj %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.ord_user.name }}</td>
+                            <td>{{ i.ord_user.telephone }}</td>
+                            <td>{{ i.update_data|date:"Y-m-d" }}</td>
+                            <td>{{ i.income }}</td>
+                            <td>寄养收入</td>
+                            <td>
+                                <a href="/casestatus/{{ i.status }}/{{ i.id }}">查看</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </table>
         </div>
-        <div class="caselist_page">{{ page }}</div>
+        <div class="twoline">
+
+
+            <div class="caselist_page">
+                <span class="countincome" style="margin-left: -430%">总收入 &nbsp;{{ count }}元</span>
+                {{ page }}
+            </div>
+        </div>
     </div>
 {% endblock %}

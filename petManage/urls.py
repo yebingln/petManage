@@ -40,8 +40,9 @@ urlpatterns = [
     url(r'^casestatus/4/(\d*)$', views.cancelcase),
     url(r'^familylist/(\d*)', views.familylist),
     url(r'^newpayout/', views.newpayout),
-    url(r'^paylist/', views.paylist),
-    url(r'^incomelist/', views.incomelist),
+    url(r'^paylist/(\d*)$', views.paylist),
+    url(r'^incomelist/(\d*)$', views.incomelist),
+    url(r'^finishpay/(\d*)$', views.finishpay),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
 ]

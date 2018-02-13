@@ -9,9 +9,8 @@
 
 </head>
 <body>
-<div style="margin: 1% 3%">
+<div style="margin: 2% 5%">
     <div>
-        {#        <div style="position: absolute"><img src="../../static/img/title.jpg"></div>#}
         <span class="title">宠物管理系统</span>
         <span class="user">昵称&nsbp{{ user }}</span>
     </div>
@@ -23,7 +22,6 @@
     </div>
     <form action="" method="post" name="allsubmit" id="tijiao">
         <div class="div-inline1" style="margin-left: 20%">
-{#            {% include 'casemanagelist/newcase.html' %}#}
             {% block content %}
             {% endblock %}
         </div>

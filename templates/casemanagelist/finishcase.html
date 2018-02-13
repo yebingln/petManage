@@ -44,15 +44,16 @@
         <br/>
         <div class="twoline">
             <span>宠物位置</span>
-            <input type="text" value={{ obj.pet_po | getvalue:obj.petposition }} />
+            <input type="text" value={{ obj.pet_po | getvalue:obj.petposition }}/>
             <span>食物位置</span>
-            <input type="text" value={{ obj.foot_po | getvalue:obj.footposition }} />
+            <input type="text" value={{ obj.foot_po | getvalue:obj.footposition }}/>
         </div>
-        </div>
-        <br/>
-        <div class="twoline">
-            <input type="submit" value="返回">
+    </div>
+    <br/>
+    <div class="twoline">
+        <span onclick="javascript:window.history.back()" class="finishback">返回</span>
+{#        <input type="button" onclick="javascript:window.history.forward()" value="前进" /> #}
+    </div>
 
-        </div>
 
 {% endblock %}

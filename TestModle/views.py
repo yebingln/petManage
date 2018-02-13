@@ -1,3 +1,5 @@
+from django.db.models.functions import datetime
+import time
 from django.shortcuts import render, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from  django.shortcuts import HttpResponse, redirect
@@ -196,6 +198,7 @@ def pendingcase(request, id):
                 ord = models.order.objects.filter(id=id)
                 ord.update(status=4)
                 ord.update(cancelreasion=cancelreasion)
+                ord.update(income='')
                 return redirect('/caselist')
         elif finish == 1:
             cc = models.order.objects.filter(id=id)
@@ -278,8 +281,8 @@ def familylist(request, pageid):
 
 def updatuser(request, id):
     data = models.Pet.objects.filter(id=int(id))
-    data1=models.Pet.objects.get(id=int(id))
-    ret={'data':data,'data1':data1}
+    data1 = models.Pet.objects.get(id=int(id))
+    ret = {'data': data, 'data1': data1}
     if request.method == 'GET':
         return render_to_response('familymanagelist/updateuser.html', ret)
     else:
@@ -299,23 +302,127 @@ def updatuser(request, id):
         id = models.UserInfo.objects.filter(telephone=telephone).values('id')
         for i in id:
             host_id = i['id']
-        if file0!='':
-            data.update(petname=petname,type=pettype,like=newuserpetlike,photo=file0,pethost_id=host_id)
+        if file0 != '':
+            data.update(petname=petname, type=pettype, like=newuserpetlike, photo=file0, pethost_id=host_id)
         else:
             data.update(petname=petname, type=pettype, like=newuserpetlike, pethost_id=host_id)
         return redirect('/familylist/')
+
+
 def newpayout(request):
-    if request.method=='GET':
+    if request.method == 'GET':
         return render_to_response('cashmanagelist/newpay.html')
     else:
-        payouttime=request.POST.get('payouttime')
-        payoutcount=request.POST.get('payoutcount')
-        payoutreasion=request.POST.get('payoutreasion')
-        models.PayOut.objects.create(paytime=payouttime,pay=payoutcount,payreasion=payoutreasion)
-        return HttpResponse('OK')
+        payouttime = request.POST.get('payouttime')
+        payoutcount = request.POST.get('payoutcount')
+        payoutreasion = request.POST.get('payoutreasion')
+        payoutpersion = request.POST.get('payoutpersion')
+        models.PayOut.objects.create(paytime=payouttime, pay=payoutcount, payreasion=payoutreasion,
+                                     worker=payoutpersion)
+        return redirect('/paylist')
+
 
 def paylist(request):
     return render_to_response('cashmanagelist/paylist.html')
 
-def incomelist(request):
+
+def incomelist(request, pageid):
+    ret = {'resul': '', 'page': '', 'count': ''}
+    per_item = common.try_int(5, 5)  # 获取cookie
+    count = models.order.objects.count()
+    page = common.try_int(pageid, 1)
+    pageobj = HTML_helper.Pageinfo(page, count, per_item)
+    resul = models.order.objects.all()[pageobj.start():pageobj.end()]
+    page_string = HTML_helper.pager(page, pageobj.all_page_count(), 'incomelist')
+    count = models.order.objects.filter(status=3).values('income')
+    sumer=0
+    for i in count:
+        sumer += int(i['income'])
+    ret['resul'] = resul
+    ret['page'] = page_string
+    ret['count'] = sumer
+    if request.method == 'GET':
+        return render_to_response('cashmanagelist/incomelist.html', ret)
+    elif request.method == 'POST':
+        objlist = []
+        listid = request.POST.get('caselistcaseid')
+        listname = request.POST.get('caselistname')
+        listtel = request.POST.get('caselisttelephone')
+        if listid != '':
+            filid = models.order.objects.filter(id=int(listid))
+            objlist.append(filid)
+        if listname != '':
+            filname = models.order.objects.filter(ord_user__telephone=listname)
+            objlist.append(filname)
+        if listtel != '':
+            li = listtel.split('-')
+            filtel = models.order.objects.filter(update_data__year=li[0], update_data__month=li[1],
+                                                 update_data__day=li[2])
+            objlist.append(filtel)
+        if 'caselsitsearch' in request.POST:
+            for obj in objlist:
+                if obj:
+                    ret['obj'] = obj
+                    print('no空')
+                    return render_to_response('cashmanagelist/incomelist.html', ret)
+        return render_to_response('cashmanagelist/incomelist.html', ret)
+
     return render_to_response('cashmanagelist/incomelist.html')
+
+
+def paylist(request, pageid):
+    ret = {'resul': '', 'page': '', 'count': '', 'gain': ''}
+    per_item = common.try_int(5, 5)  # 获取cookie
+    count = models.PayOut.objects.count()
+    page = common.try_int(pageid, 1)
+    pageobj = HTML_helper.Pageinfo(page, count, per_item)
+    resul = models.PayOut.objects.all()[pageobj.start():pageobj.end()]
+    page_string = HTML_helper.pager(page, pageobj.all_page_count(), 'paylist')
+    count = models.PayOut.objects.values('pay')
+    gain = models.order.objects.filter(status=3).values('income')
+    sumer = 0
+    for i in gain:
+        sumer += int(i['income'])
+    decl = 0
+    for i in count:
+        decl += int(i['pay'])
+    ret['resul'] = resul
+    ret['page'] = page_string
+    ret['count'] = decl
+    profile = sumer - decl
+    ret['gain'] = profile
+    if request.method == 'GET':
+        return render_to_response('cashmanagelist/paylist.html', ret)
+    elif request.method == 'POST':
+        objlist = []
+        listid = request.POST.get('caselistcaseid')
+        listname = request.POST.get('caselistname')
+        listtel = request.POST.get('caselisttelephone')
+        if listid != '':
+            filid = models.PayOut.objects.filter(id=int(listid))
+            objlist.append(filid)
+        if listname != '':
+            filname = models.PayOut.objects.filter(worker=listname)
+            objlist.append(filname)
+        if listtel != '':
+            li = listtel.split('-')
+            filtel = models.PayOut.objects.filter(updatedata__year=li[0], updatedata__month=li[1],
+                                                 updatedata__day=li[2])
+            objlist.append(filtel)
+        if 'caselsitsearch' in request.POST:
+            for obj in objlist:
+                if obj:
+                    ret['obj'] = obj
+                    print('no空')
+                    return render_to_response('cashmanagelist/paylist.html', ret)
+        return render_to_response('cashmanagelist/paylist.html', ret)
+
+    return render_to_response('cashmanagelist/paylist.html')
+
+def finishpay(request,id):
+    obj = models.PayOut.objects.get(id=int(id))
+    if request.method == 'GET':
+        return render_to_response('cashmanagelist/finishpay.html', {'obj': obj})
+    else:
+        return redirect('/paylist')
+    return render_to_response('cashmanagelist/finishpay.html')

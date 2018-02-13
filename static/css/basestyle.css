@@ -381,6 +381,7 @@ input[type='radio'] {
     font-size: 25px;
     color: dimgray
 }
+
 .cancelcase {
     width: 140px;
     border: 1px solid salmon;
@@ -388,4 +389,22 @@ input[type='radio'] {
     background-color: sandybrown;
     font-size: 25px;
     color: dimgray
+}
+
+.finishback {
+    width: 180px;
+    border: 1px solid salmon;
+    padding: 5px 60px;
+    background-color: sandybrown;
+    font-size: 25px;
+    color: dimgray;
+    display: block;
+    margin-top: 60px;
+}
+
+.countincome {
+    margin-left: -917px;
+    display: block;
+    font-size: 25px;
+    color: red;
 }

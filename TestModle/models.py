@@ -74,6 +74,8 @@ class PayOut(models.Model):
     pay=models.CharField(max_length=50,null=True)
     paytime=models.DateTimeField(null=True)
     payreasion=models.CharField(max_length=50,null=True)
+    worker=models.CharField(max_length=50,null=True)
+    creatdate = models.DateTimeField(auto_now_add=True, null=True)
+    updatedata = models.DateTimeField(auto_now=True, error_messages={'invalid': '日期格式错误'}, null=True)
 
-class Image(models.Model):
-    pass
+
