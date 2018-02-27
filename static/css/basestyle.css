@@ -41,7 +41,12 @@
     margin-bottom: 35px;
     color: dimgray;
 }
-
+.newcasetitle1 {
+    font-size: 35px;
+    background-color: peachpuff;
+    padding: 10px;
+    color: dimgray;
+}
 .twoline {
     margin: 10px;
     font-size: 20px;

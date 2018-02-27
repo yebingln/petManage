@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'TestModle'
+    'TestModle',
+    'django_crontab',
 
 ]
 
@@ -120,7 +121,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace("\\","/")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace("\\", "/")
+
+CRONJOBS = [
+    ('0 18 * * *', 'TestModle.cron.test','>>/Users/yebingbing/PycharmProjects/petManage/TestModle/log/test.txt')
+]

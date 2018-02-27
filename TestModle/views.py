@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*
 from django.db.models.functions import datetime
 import time
 from django.shortcuts import render, HttpResponseRedirect
@@ -316,7 +317,7 @@ def newpayout(request):
         payouttime = request.POST.get('payouttime')
         payoutcount = request.POST.get('payoutcount')
         payoutreasion = request.POST.get('payoutreasion')
-        payoutpersion = request.POST.get('payoutpersion')
+        payoutpersion = request.POST.get('payoutperson')
         models.PayOut.objects.create(paytime=payouttime, pay=payoutcount, payreasion=payoutreasion,
                                      worker=payoutpersion)
         return redirect('/paylist')
@@ -426,3 +427,8 @@ def finishpay(request,id):
     else:
         return redirect('/paylist')
     return render_to_response('cashmanagelist/finishpay.html')
+
+def task(request):
+    t=models.order.objects.get(petposition=1)
+    print(t.endtime)
+    return render_to_response('taskschedule.html',{'data':t})

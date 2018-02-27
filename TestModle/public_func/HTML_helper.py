@@ -1,4 +1,4 @@
-#coding='utf-8'
+# -*- coding: utf-8 -*
 from django.utils.safestring import mark_safe
 
 #分页功能方法

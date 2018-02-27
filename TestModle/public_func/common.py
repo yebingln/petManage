@@ -1,4 +1,4 @@
-#coding='utf-8'
+# -*- coding: utf-8 -*
 
 #通用的方法
 def try_int(arg,default):
